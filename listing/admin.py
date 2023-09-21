@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Property, Ptype, Offer, OfferStatus
+
+admin.site.register(Property)
+admin.site.register(Ptype)
+admin.site.register(Offer)
+admin.site.register(OfferStatus)

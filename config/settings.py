@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # "crispy_tailwind",
     # Local
     "listing",
+    "user",
 ]
 
 MIDDLEWARE = [
@@ -156,8 +157,12 @@ SOCIALACCOUNT_PROVIDERS = {
     "google": {"SCOPE": ["profile", "email"], "AUTH_PARAMS": {"access_type": "online"}}
 }
 
-SITE_ID = 1
+SITE_ID = 3
 
+# SOCIALACCOUNT_QUERY_EMAIL = True
+# ACCOUNT_LOGOUT_ON_GET= True
+# ACCOUNT_UNIQUE_EMAIL = True
+# ACCOUNT_EMAIL_REQUIRED = True
 # ACCOUNT_EMAIL_VERIFICATION = "none"
 
 LOGIN_REDIRECT_URL = "/"
