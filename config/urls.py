@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    # Admin
     path("admin/", admin.site.urls),
-    path("", include("listing.urls")),
+    # Auth
+    # path("accounts/", include("allauth.urls")),
     # ZTM auth
     # path("accounts/", include("django.contrib.auth.urls")),
     # path("accounts/signup", SignupView.as_view(), name="signup"),
-    # Google auth
-    path("accounts/", include("allauth.urls")),
+    path("", include("listing.urls")),
 ]

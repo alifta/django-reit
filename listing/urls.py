@@ -12,5 +12,5 @@ urlpatterns = [
     # path("dashboard/listing/<int:pk>/", ListingDetailView.as_view(), name="listing-detail"),
     # Function view
     path("", listing_home, name="home"),
-    path("logout/", listing_logout, name="logout"),
+    # path("logout/", listing_logout, name="logout"),
 ]

@@ -1,11 +1,15 @@
 {
+    "beautify.language": {
+        "html": [
+            "django-html"
+        ]
+    },
+    "[django-html]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "HookyQR.beautify"
+    },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
-    "python.formatting.provider": "black",
-    "cSpell.words": [
-        "allauth",
-        "singlefamily",
-        "SOCIALACCOUNT"
-    ]
+    "python.formatting.provider": "none"
 }

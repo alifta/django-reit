@@ -38,19 +38,19 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.sites",
-    # Allauth
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
-    "allauth.socialaccount.providers.google",
+    # Authentication
+    # "django.contrib.sites",
+    # "allauth",
+    # "allauth.account",
+    # "allauth.socialaccount",
+    # "allauth.socialaccount.providers.google",
     # "allauth.socialaccount.providers.github",
     # 3rd party
     # "crispy_forms",
     # "crispy_tailwind",
     # Local
     "listing",
-    "user",
+    # "user",
 ]
 
 MIDDLEWARE = [
@@ -62,7 +62,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     # Allauth
-    "allauth.account.middleware.AccountMiddleware",
+    # "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -80,7 +80,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 # Allauth
-                "django.template.context_processors.request",
+                # "django.template.context_processors.request",
             ],
         },
     },
@@ -145,19 +145,19 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
-# Authentication
-AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin regardless of allauth
-    "django.contrib.auth.backends.ModelBackend",
-    # Specific authentication methods for allauth such as login by email
-    "allauth.account.auth_backends.AuthenticationBackend",
-]
+# # Authentication
+# AUTHENTICATION_BACKENDS = [
+#     # Needed to login by username in Django admin regardless of allauth
+#     "django.contrib.auth.backends.ModelBackend",
+#     # Specific authentication methods for allauth such as login by email
+#     "allauth.account.auth_backends.AuthenticationBackend",
+# ]
 
-SOCIALACCOUNT_PROVIDERS = {
-    "google": {"SCOPE": ["profile", "email"], "AUTH_PARAMS": {"access_type": "online"}}
-}
+# SOCIALACCOUNT_PROVIDERS = {
+#     "google": {"SCOPE": ["profile", "email"], "AUTH_PARAMS": {"access_type": "online"}}
+# }
 
-SITE_ID = 3
+# SITE_ID = 3
 
 # SOCIALACCOUNT_QUERY_EMAIL = True
 # ACCOUNT_LOGOUT_ON_GET= True
