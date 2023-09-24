@@ -8,9 +8,3 @@ find . -path "*/migrations/*.pyc"  -delete
 ```
 
 2. Drop current database or delete `db.sqlite3`
-
-3. Clear migration history
-
-```shell
-python manage.py migrate --fake core zero
-```
