@@ -1,4 +1,9 @@
 from django.db import models
+from django.utils import timezone
+
+
+def one_day_after():
+    return timezone.now() + timezone.timedelta(days=1)
 
 
 class Feature(models.Model):
@@ -106,63 +111,12 @@ class Property(models.Model):
         return f"{self.title} | {self.city}"
 
 
-class Agent(models.Model):
-    # Fields
-    email = models.EmailField()
-    username = models.CharField(max_length=150)
-    password = models.CharField(max_length=250)
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
-    date_of_birth = models.DateField(null=True, blank=True)
-    date_of_death = models.DateField("Died", null=True, blank=True)
-    phone = models.CharField(max_length=150)
-    slug = models.SlugField(null=True)
-    is_active = models.BooleanField(default=True)
-    date_activated = models.DateTimeField(null=True, blank=True)
-    date_start = models.DateTimeField(null=True, blank=True)
-    date_end = models.DateTimeField(null=True, blank=True)
-    date_added = models.DateTimeField(auto_now_add=True)
-    date_updated = models.DateTimeField(auto_now=True)
-    # Office/Real Estate Company - FK
+class Decorator(models.Model):
+    name = models.CharField(max_length=50)
 
-    # Choices
-    AGENT_TYPE = (
-        ("a", "Agent"),
-        ("b", "Broker"),
-    )
 
-    AGENT_SIDE = (
-        ("s", "Seller"),
-        ("b", "Buyer"),
-    )
-
-    agent_type = models.CharField(
-        "type",
-        max_length=1,
-        choices=AGENT_TYPE,
-        default="a",
-        blank=True,
-        help_text="Agent type",
-    )
-
-    agent_side = models.CharField(
-        "side",
-        max_length=1,
-        choices=AGENT_SIDE,
-        default="s",
-        blank=True,
-        help_text="Agent side",
-    )
-
-    # Meta
-    class Meta:
-        verbose_name = "agent"
-        verbose_name_plural = "agents"
-        ordering = ["username"]
-
-    # String
-    def __str__(self):
-        return f"{self.username} | {self.email}"
+class Designer(models.Model):
+    name = models.CharField(max_length=50)
 
 
 class RealEstate(models.Model):
@@ -182,16 +136,66 @@ class RealEstate(models.Model):
         return f"{self.name}"
 
 
+class Agent(models.Model):
+    # Fields
+    email = models.EmailField()
+    username = models.CharField(max_length=150)
+    password = models.CharField(max_length=250)
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
+    date_of_birth = models.DateField(null=True, blank=True)
+    date_of_death = models.DateField("Died", null=True, blank=True)
+    phone = models.CharField(max_length=150)
+    slug = models.SlugField(null=True)
+    is_active = models.BooleanField(default=True)
+    date_activated = models.DateTimeField(null=True, blank=True)
+    date_start = models.DateTimeField(null=True, blank=True)
+    date_end = models.DateTimeField(null=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
+    real_estate = models.ForeignKey(
+        RealEstate,
+        on_delete=models.SET_NULL,
+        related_name="agents",
+    )
+
+    # Choices
+    AGENT_TYPE = (
+        ("a", "Agent"),
+        ("b", "Broker"),
+    )
+
+    agent_type = models.CharField(
+        "type",
+        max_length=1,
+        choices=AGENT_TYPE,
+        default="a",
+        blank=True,
+        help_text="Agent type",
+    )
+
+    # Meta
+    class Meta:
+        verbose_name = "agent"
+        verbose_name_plural = "agents"
+        ordering = ["username"]
+
+    # String
+    def __str__(self):
+        return f"{self.username} | {self.email}"
+
+
 class Listing(models.Model):
     # Fields
     title = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
     price = models.IntegerField()
     days_on_market = models.IntegerField()
+    image = models.FileField(upload_to="listing_images/", blank=True)
     slug = models.SlugField(null=True)
     is_active = models.BooleanField(default=True)
     date_activated = models.DateTimeField(null=True, blank=True)
-    date_available = models.DateTimeField(null=True, blank=True)
+    date_available = models.DateTimeField(default=one_day_after, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
     property = models.ForeignKey(
@@ -208,6 +212,8 @@ class Listing(models.Model):
     LISTING_TYPE = (
         ("s", "Sale"),
         ("r", "Rent"),
+        ("s", "Staging"),
+        ("n", "Renovation"),
     )
     LISTING_STATUS = (
         ("r", "Created"),
@@ -248,6 +254,32 @@ class Listing(models.Model):
 class ListingAgent(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
+
+    AGENT_SIDE = (
+        ("s", "Seller"),
+        ("b", "Buyer"),
+    )
+    agent_side = models.CharField(
+        "side",
+        max_length=1,
+        choices=AGENT_SIDE,
+        default="s",
+        blank=True,
+        help_text="Agent side",
+    )
+    AGENT_ROLE = (
+        ("ag", "Agent"),
+        ("ap", "Appraisal"),
+        ("pm", "Property Manager"),
+    )
+    agent_role = models.CharField(
+        "role",
+        max_length=2,
+        choices=AGENT_ROLE,
+        default="ag",
+        blank=True,
+        help_text="Agent role",
+    )
 
 
 class Offer(models.Model):

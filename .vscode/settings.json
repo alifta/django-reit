@@ -13,6 +13,8 @@
     },
     "python.formatting.provider": "none",
     "cSpell.words": [
+        "apikey",
+        "sendgrid",
         "SINGLEFAMILY"
     ]
 }

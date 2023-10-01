@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<h1 class="justify-content-center">Listings</h1>
+<div class="row">
+{% for listing in listings %}
+    <div class="col-md-4">
+        <div class="card mb-2">
+            {% if listing.image %}
+                <img class="card-img-top" src="{{ listing.image.url }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ listing.title }}</h5>
+                <p class="card-text">{{ listing.price }}</p>
+                <a href="{% url 'listing_detail' listing.pk %}"
+                    class="btn btn-primary">
+                    More Details
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock page_content %}
