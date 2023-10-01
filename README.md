@@ -22,3 +22,73 @@ a SMTP server at http://localhost:1025. It won't send any emails to actual email
 ```shell
 python -m smtpd -n -c DebuggingServer localhost:1025
 ```
+
+# Snippet
+
+list all table entities
+
+```py
+def listing_list(request):
+    listings = Listing.objects.all()
+    context = {
+        "listings": listings
+    }
+    return render(request, "listings.html", context)
+```
+
+Get detail of a specific entry in a table by id
+
+```py
+def listing_retrieve(request, pk):
+    listing = Listing.objects.get(id=pk)
+    context = {
+        "listing": listing
+    }
+    return render(request, "listing.html", context)
+```
+
+Create a new entry in a table
+
+```py
+def listing_create(request):
+    form = ListingForm()
+
+    if request.method == "POST":
+        form = ListingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+
+    context = {
+        "form": form
+    }
+    return render(request, "listing_create.html", context)
+```
+
+Update an entry in a table
+
+```py
+def listing_update(request, pk):
+    listing = Listing.objects.get(id=pk)
+    form = ListingForm(instance=listing)
+
+    if request.method == "POST":
+        form = ListingForm(request.POST, instance=listing)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+
+    context = {
+        "form": form
+    }
+    return render(request, "listing_update.html", context)
+```
+
+Delete an entry in a table
+
+```py
+def listing_delete(request, pk):
+    listing = Listing.objects.get(id=pk)
+    listing.delete()
+    return redirect("/")
+```
