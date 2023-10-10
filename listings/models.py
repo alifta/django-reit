@@ -155,7 +155,8 @@ class Agent(models.Model):
     date_updated = models.DateTimeField(auto_now=True)
     real_estate = models.ForeignKey(
         RealEstate,
-        on_delete=models.SET_NULL,
+        # on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         related_name="agents",
     )
 

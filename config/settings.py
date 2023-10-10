@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "users",
     "pages.apps.PagesConfig",
     "listings.apps.ListingsConfig",
+    "social",
 ]
 
 MIDDLEWARE = [

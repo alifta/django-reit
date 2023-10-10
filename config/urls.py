@@ -11,4 +11,5 @@ urlpatterns = [
     # Removing "accounts/" url from "users/urls.py"
     path("users/", include("django.contrib.auth.urls")),
     path("listings/", include("listings.urls")),
+    path("social/", include("social.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
