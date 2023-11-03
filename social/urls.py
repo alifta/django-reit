@@ -1,11 +1,18 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
-from .views import social, profile_list, profile_detail
+from . import views
 
 app_name = "social"
 
+router = DefaultRouter()
+# router.register(r"comments", views.CommentViewSet, "comment")
+router.register(r"categories", views.CategoryViewSet, "category")
+
 urlpatterns = [
-    path("", social, name="social"),
-    path("profile/", profile_list, name="profile_list"),
-    path("profile/<int:pk>", profile_detail, name="profile_detail"),
+    path("", views.social, name="social"),
+    path("profile/", views.profile_list, name="profile_list"),
+    path("profile/<int:pk>", views.profile_detail, name="profile_detail"),
+    path("api/list_posts/", views.list_posts),
+    path("api/", include(router.urls)),
 ]

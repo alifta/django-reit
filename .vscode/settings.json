@@ -1,8 +1,6 @@
 {
     "beautify.language": {
-        "html": [
-            "django-html"
-        ]
+        "html": ["django-html"]
     },
     "[django-html]": {
         "editor.formatOnSave": false,
@@ -12,10 +10,5 @@
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
     "python.formatting.provider": "none",
-    "cSpell.words": [
-        "apikey",
-        "sendgrid",
-        "SINGLEFAMILY",
-        "unfollow"
-    ]
+    "cSpell.words": ["apikey", "sendgrid", "SINGLEFAMILY", "unfollow"]
 }
