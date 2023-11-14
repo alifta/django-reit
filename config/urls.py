@@ -13,3 +13,5 @@ urlpatterns = [
     path("listings/", include("listings.urls")),
     path("social/", include("social.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = "config.views.handler404"

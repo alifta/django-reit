@@ -45,6 +45,7 @@ class Story(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        db_table = "story"
         verbose_name_plural = "Stories"
 
     def __str__(self):
@@ -55,6 +56,7 @@ class Category(models.Model):
     name = models.CharField(max_length=30)
 
     class Meta:
+        db_table = "category"
         verbose_name_plural = "Categories"
 
     def __str__(self):
@@ -68,6 +70,9 @@ class Post(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
     categories = models.ManyToManyField("Category", related_name="posts")
 
+    class Meta:
+        db_table = "post"
+
     def __str__(self):
         return self.title
 
@@ -77,6 +82,9 @@ class Comment(models.Model):
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     post = models.ForeignKey("Post", on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = "comment"
 
     def __str__(self):
         return f"{self.author} on '{self.post}'"

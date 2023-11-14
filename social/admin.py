@@ -20,3 +20,4 @@ admin.site.register(Comment, CommentAdmin)
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ("title", "body", "created_on")
+    search_fields = ("title__startwith",)
